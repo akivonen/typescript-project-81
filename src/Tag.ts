@@ -1,6 +1,6 @@
 export default class Tag {
   private name: string;
-  private attributes: string[];
+  private attributes: Record<string, string | number>;
   private children: string | number;
   private isSingleTag: boolean;
   private singleTags: string[] = [
@@ -19,13 +19,15 @@ export default class Tag {
 
   constructor(name: string, attributes?: Record<string, string | number>, children?: string | number) {
     this.name = name;
-    this.attributes = Object.entries(attributes ?? {}).map(([key, value]) => `${key}="${value}"`);
+    this.attributes = attributes ?? {};
     this.children = children ?? '';
     this.isSingleTag = this.singleTags.includes(name);
   };
 
   attrsToString() {
-    return this.attributes.length > 0 ? ` ${this.attributes.join(' ')}` : '';
+    return Object.entries(this.attributes)
+      .map(([key, value]) => `${key}="${value}"`)
+      .join(' ');
   }
 
   toString() {
