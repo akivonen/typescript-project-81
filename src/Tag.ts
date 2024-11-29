@@ -31,8 +31,8 @@ export default class Tag {
   }
 
   toString() {
-    return this.isSingleTag 
-      ? `<${this.name}${this.attrsToString()}>`
-      : `<${this.name}${this.attrsToString()}>${this.children}</${this.name}>`; 
+    return this.isSingleTag
+      ? `<${this.name} ${this.attrsToString()}>`
+      : `<${this.name} ${this.attrsToString()}>${this.children}</${this.name}>`; 
   };
 }
