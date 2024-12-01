@@ -25,14 +25,17 @@ export default class Tag {
   };
 
   attrsToString() {
-    return Object.entries(this.attributes)
+    const stringifiedAttrs = Object.entries(this.attributes)
       .map(([key, value]) => `${key}="${value}"`)
       .join(' ');
+    return stringifiedAttrs.length > 0 
+      ? ` ${stringifiedAttrs}`
+      : '';
   }
 
   toString() {
     return this.isSingleTag
-      ? `<${this.name} ${this.attrsToString()}>`
-      : `<${this.name} ${this.attrsToString()}>${this.children}</${this.name}>`; 
+      ? `<${this.name}${this.attrsToString()}>`
+      : `<${this.name}${this.attrsToString()}>${this.children}</${this.name}>`; 
   };
 }
