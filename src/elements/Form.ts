@@ -8,8 +8,8 @@ export default class Form extends Tag {
   private template: Template;
   private inputs: Field[];
   private defaultAttributes: Attributes = {
-    action: '#',
     method: 'post',
+    action: '#',
   };
   constructor(template: Record<string, string>, attributes: Attributes | {}) {
     super('form');

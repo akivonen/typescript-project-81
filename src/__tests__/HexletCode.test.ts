@@ -4,7 +4,7 @@ import formFixtures from 'src/__fixtures__/formFixtures';
 
 describe('HexletCode tests', () => {
   const template = { name: 'rob', job: 'hexlet', gender: 'm' };
-  
+
   test('field generation', () => {
     const form = HexletCode.formFor(template, { method: 'post' }, (f) => {
       f.input('name');
@@ -24,14 +24,14 @@ describe('HexletCode tests', () => {
   });
 
   test('default attrs', () => {
-    const form = HexletCode.formFor(template, {}, (f) =>
+    const form = HexletCode.formFor(template, { method: 'get' }, (f) =>
       f.input('job', { as: 'textarea' }));
     const actual = formFixtures.test3;
     expect(form).toBe(actual);
   });
 
   test('default attrs overriding', () => {
-    const form = HexletCode.formFor(template, { url: '#' }, (f) =>
+    const form = HexletCode.formFor(template, { url: '/users' }, (f) =>
       f.input('job', { as: 'textarea', rows: 50, cols: 50}));
     const actual = formFixtures.test4;
     expect(form).toBe(actual);
