@@ -11,8 +11,8 @@ export default class Textarea extends Tag {
     super('textarea');
     const { value, name, ...textAreaAttrs } = attributes;
     this.attributes = {
-      name,
       ...this.defaultAttributes,
+      name,
       ...textAreaAttrs,
     }
     this.children = attributes?.value ?? '';
