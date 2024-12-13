@@ -1,6 +1,6 @@
 import { expect, test, describe, assert } from 'vitest';
 import HexletCode from "../HexletCode";
-import formFixtures from 'src/__fixtures__/formFixtures';
+import formFixtures from '../__fixtures__/formFixtures';
 
 describe('HexletCode tests', () => {
   const template = { name: 'rob', job: 'hexlet', gender: 'm' };
