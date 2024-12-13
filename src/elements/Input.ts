@@ -5,12 +5,14 @@ export default class Input extends Tag {
 
   constructor(attributes: Attributes) {
     super('input');
-    const { name, ...inputAttrs } = attributes;
-    this.attributes = {
-      name,
-      type: 'text',
-      ...inputAttrs,
-    };
+    const { name, type, ...inputAttrs } = attributes;
+    this.attributes = attributes.type === 'submit'
+      ? { type, ...attributes }
+      : {
+        name,
+        type: 'text',
+        ...inputAttrs,
+      };
   }
 
 }

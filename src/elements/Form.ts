@@ -1,7 +1,8 @@
 import Tag from "./Tag";
 import Input from "./Input";
 import Textarea from "./Textarea";
-import { FormProps, Template, Attributes, Field } from "../types";
+import Label from "./Label";
+import { Template, Attributes, Field } from "../types";
 
 export default class Form extends Tag {
   private template: Template;
@@ -19,12 +20,27 @@ export default class Form extends Tag {
 
   public input(fieldName: string, attrs?: Attributes): void {
     if (!Object.hasOwn(this.template, fieldName)) {
-      throw new Error(`Field '${fieldName}' does not exist in the template.`);
+      throw new Error(`Error: Field '${fieldName}' does not exist in the template.`);
     }
     const field = this.createInput(
       { name: fieldName, value: this.template[fieldName], ...attrs },
     )
     this.inputs.push(field);
+  }
+
+  public submit(value?: string, attributes?: Attributes) {
+    const submitAttributes = {
+      value: value ?? 'Save',
+      type: 'submit',
+      ...attributes,
+    };
+    const submit = new Input(submitAttributes);
+    this.inputs.push(submit);
+  }
+
+  public label(fieldName: string, attributes?: Attributes) {
+    const label = new Label({for: fieldName, ...attributes});
+    return label;
   }
 
   public createInput(attrs: Attributes): Field {
@@ -36,7 +52,13 @@ export default class Form extends Tag {
   }
 
   public inputsToString() : string {
-    return this.inputs.join('');
+    const inputsStr = this.inputs.reduce((inputsStr, currInput) => {
+      if(currInput.attributes.type === 'submit') {
+        return inputsStr += currInput.toString();
+      }
+      return inputsStr += `${this.label(currInput.attributes.name ?? '').toString()}${currInput.toString()}`
+    }, '')
+    return inputsStr;
   }
 
   public toString(): string {

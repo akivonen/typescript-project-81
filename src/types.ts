@@ -7,6 +7,8 @@ export interface IHTMLElement {
 }
 
 export type Attributes = {
+  name?: string;
+  for?: string;
   [key: string]: string | number | undefined;
 };
 
